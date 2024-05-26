@@ -2,13 +2,18 @@ import express from 'express';
 import getPDFText from '../utils/PdfReader.js';
 import fileUpload from 'express-fileupload'
 import invoice from '../repository/invoice.js';
+import cors from 'cors'
 
 
 const app = express();
 
-
 // Middleware para fazer o upload dos arquivos
 app.use(fileUpload());
+
+app.use(cors({
+	origin: '*',
+	methods: ['GET','POST','DELETE','PUT'],
+  }));
 
 app.get('/test', async (req, res) => {
   res.send('Hello World');
