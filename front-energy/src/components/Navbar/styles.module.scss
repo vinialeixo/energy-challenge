@@ -1,0 +1,20 @@
+.container {
+    height: 80px;
+
+    padding: 0 10px;
+    
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background-color: #333333;
+    color: #FFF;
+
+    div:first-child {
+        font-size: 32px;
+    }
+
+    div:last-child {
+        font-size: 24px;
+    }
+}

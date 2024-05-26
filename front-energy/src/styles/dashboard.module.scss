@@ -1,0 +1,28 @@
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    gap: 16px;
+
+    height: 100%;
+
+    .pageActions {
+        display: flex;
+        justify-content: end;
+        align-items: end;
+        gap: 16px;
+
+        .select {
+            width: 20%;
+        }
+    }
+
+    .graphContent {
+        display: flex;
+        justify-content: space-between;
+    
+        height: 100vh;
+
+    }
+}

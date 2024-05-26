@@ -14,6 +14,45 @@ app.get('/test', async (req, res) => {
   res.send('Hello World');
 });
 
+app.get('/client-numbers', async (req, res) => {
+	let msgs = [];
+	try {
+		const result = await invoice.getClientNumbers()
+
+		if (result.length > 0)
+			msgs.push('Success')
+		else msgs.push('No data to show')
+
+		res.status(200).json({msgs, status: "ok", data: result});
+	} catch (e) {
+		if (e.constructor.name == "DatabaseError")
+			// When DatabaseError supress the details msg by security.
+			msgs.push(e.constructor.name)
+		else msgs.push(e.constructor.name + " - " + e.message)
+
+		res.status(500).json({msgs, status: "error"});
+	}
+})
+
+app.get('/client-number', async (req, res) => {
+	let msgs = [];
+	const { clientNumber } = req.query
+
+	try {
+		const result = await invoice.getByClientNumber({clientNumber})
+
+		if (result.length > 0)
+			msgs.push('Success')
+		else msgs.push('No data to show')
+		res.status(200).json({msgs, status: "ok", data: result});
+	} catch (e) {
+		if (e.constructor.name == "DatabaseError")
+			msgs.push(e.constructor.name)
+		else msgs.push(e.constructor.name + " - " + e.message)
+
+		res.status(500).json({msgs, status: "error"});
+	}
+})
 app.post('/import', async (req, res) =>{
   let msgs = [];
 	let PDFInfoArray = []
@@ -32,10 +71,9 @@ app.post('/import', async (req, res) =>{
 			const uploadPath = currentDir + '/storage/' + file.name;
 			await file.mv(uploadPath)
 
-      const pdfBuffer = new Uint8Array(file.data);
-      const PDFInfo = await getPDFText(pdfBuffer);
-      console.log(PDFInfo)
-			return PDFInfo
+      	const pdfBuffer = new Uint8Array(file.data);
+      	const PDFInfo = await getPDFText(pdfBuffer);
+		return PDFInfo
 		})
 
 		PDFInfoArray = await Promise.all(PDFInfoArray)
@@ -48,8 +86,26 @@ app.post('/import', async (req, res) =>{
 			msgs.push(e.constructor.name)
 		else msgs.push(e.constructor.name + " - " + e.message)
 
+		console.log(msgs)
 		res.status(500).json({msgs, status: "error"});
 	}
 })
 
+app.get('/document', async (req, res) => {
+	let msgs = [];
+	const { documentName } = req.query
+
+	try {
+		const currentDir = process.cwd()
+		const downloadFile = `${currentDir}/storage/${documentName}.pdf` ;
+		res.header({ "Cache-Control": "no-cache" })
+		res.download(downloadFile)
+	} catch (e) {
+		 if (e.constructor.name == "DatabaseError")
+			msgs.push(e.constructor.name)
+		else msgs.push(e.constructor.name + " - " + e.message)
+
+		res.status(500).json({msgs, status: "error"});
+	}
+})
 export default app;
