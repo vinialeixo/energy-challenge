@@ -1,4 +1,6 @@
-import {prisma as db} from '../db/indedx'
+import {prisma as db} from '../db/index.js'
+
+
 const invoice = {
     insertMany: async (data) => {
         try {
