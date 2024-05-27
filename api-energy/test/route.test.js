@@ -2,10 +2,10 @@
 const request = require('supertest');
 const express = require('express');
 const routes = require('../src/routes/route.js');
-const invoice = require('../src/repository/invoice.js');
+const invoiceRepository = require('../src/repository/invoiceRepository.js');
 const { getPDFText } = require('../src/utils/PdfReader.js')
-// Mock the invoice and getPDFText modules
-// jest.mock('../src/controllers/invoice');
+// Mock the invoiceRepository and getPDFText modules
+// jest.mock('../src/controllers/invoiceRepository');
 // jest.mock('../src/utils/pdfParser');
 
 const app = express();
@@ -16,7 +16,7 @@ describe('API Endpoints', () => {
     describe('GET /client-numbers', () => {
         it('should return client data for a valid clientNumber', async () => {
             const mockClientData = [{ id: 1, name: 'Client A' }];
-            invoice.getByClientNumber.mockResolvedValue(mockClientData);
+            invoiceRepository.getByClientNumber.mockResolvedValue(mockClientData);
 
             const response = await request(app).get('/clients/123');
             expect(response.status).toBe(200);
@@ -28,7 +28,7 @@ describe('API Endpoints', () => {
         });
 
         it('should return no data message for an invalid clientNumber', async () => {
-            invoice.getByClientNumber.mockResolvedValue([]);
+            invoiceRepository.getByClientNumber.mockResolvedValue([]);
 
             const response = await request(app).get('/clients/999');
             expect(response.status).toBe(200);
@@ -41,7 +41,7 @@ describe('API Endpoints', () => {
 
         it('should handle errors', async () => {
             const mockError = new Error('Something went wrong');
-            invoice.getByClientNumber.mockRejectedValue(mockError);
+            invoiceRepository.getByClientNumber.mockRejectedValue(mockError);
 
             const response = await request(app).get('/clients/123');
             expect(response.status).toBe(500);
@@ -55,7 +55,7 @@ describe('API Endpoints', () => {
     describe('POST /upload', () => {
         it('should upload files and return success message', async () => {
             const mockResult = { insertedCount: 1 };
-            invoice.insertMany.mockResolvedValue(mockResult);
+            invoiceRepository.insertMany.mockResolvedValue(mockResult);
             getPDFText.mockResolvedValue({ text: 'PDF content' });
 
             const response = await request(app)
@@ -78,7 +78,7 @@ describe('API Endpoints', () => {
 
         it('should handle errors during file upload', async () => {
             const mockError = new Error('Upload failed');
-            invoice.insertMany.mockRejectedValue(mockError);
+            invoiceRepository.insertMany.mockRejectedValue(mockError);
 
             const response = await request(app)
                 .post('/upload')
@@ -101,7 +101,7 @@ describe('API Endpoints', () => {
 
         it('should handle errors during document download', async () => {
             const mockError = new Error('File not found');
-            invoice.getDocument.mockRejectedValue(mockError);
+            invoiceRepository.getDocument.mockRejectedValue(mockError);
 
             const response = await request(app).get('/document/invalid');
             expect(response.status).toBe(500);

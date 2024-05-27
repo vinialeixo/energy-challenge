@@ -1,6 +1,6 @@
 import express from 'express';
 import getPDFText from '../utils/PdfReader.js';
-import invoice from '../../repository/invoice.js';
+import invoiceRepository from '../repository/invoiceRepository.js';
 
 
 const routes = express.Router();
@@ -16,7 +16,7 @@ routes.get('/client-numbers', async (req, res) => {
     const { clientNumber } = req.params;
 
     try {
-        const clientData = await invoice.getByClientNumber({ clientNumber });
+        const clientData = await invoiceRepository.findInvoicesByClientNumber({ clientNumber });
 
         if (clientData.length > 0) {
             messages.push('Success');
@@ -41,7 +41,7 @@ routes.get('/client-number', async (req, res) => {
 	const { clientNumber } = req.query
 
 	try {
-		const result = await invoice.getByClientNumber({clientNumber})
+		const result = await invoiceRepository.listClientNumbers({clientNumber})
 
 		if (result.length > 0)
 			msgs.push('Success')
@@ -78,7 +78,7 @@ routes.post('/upload', async (req, res) =>{
         });
 
         pdfInfoArray = await Promise.all(pdfInfoArray);
-        const result = await invoice.insertMany(pdfInfoArray);
+        const result = await invoiceRepository.addInvoices(pdfInfoArray);
 
         messages.push('Files uploaded!');
         res.status(200).json({ messages, status: "ok", data: result });
