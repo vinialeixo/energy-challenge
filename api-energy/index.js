@@ -1,8 +1,9 @@
-import app from './routes/app.js'; // Certifique-se de usar o caminho relativo correto
+import app from './server.js'; // Certifique-se de usar o caminho relativo correto
 
-const Port = 5000;
+app.set('port', process.env.PORT || 5000);
+const port = app.get('port');
 
-app.listen(Port, () => {
-  console.log(`Servidor rodando no endereço http://localhost:${Port}`);
+app.listen(port, () => {
+  console.log(`Servidor rodando no endereço http://localhost:${port}`);
 });
 
