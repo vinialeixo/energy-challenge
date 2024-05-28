@@ -1,9 +1,9 @@
 // test/routes.test.js
 const request = require('supertest');
 const express = require('express');
-const routes = require('../src/routes/route.js');
-const invoiceRepository = require('../src/repository/invoiceRepository.js');
-const { getPDFText } = require('../src/utils/PdfReader.js')
+const routes = require('../routes/route.js');
+const invoiceRepository = require('../repository/invoiceRepository.js');
+const { getPDFText } = require('../utils/PdfReader.js')
 // Mock the invoiceRepository and getPDFText modules
 // jest.mock('../src/controllers/invoiceRepository');
 // jest.mock('../src/utils/pdfParser');

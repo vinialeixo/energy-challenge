@@ -1,4 +1,4 @@
-import routes from './src/routes/route.js'
+import routes from './routes/route.js'
 import express from 'express'
 import fileUpload from 'express-fileupload'
 // import bodyParser from 'body-parser'
