@@ -1,4 +1,4 @@
-import routes from './routes/route.js'
+import controller from './routes/controller.js'
 import express from 'express'
 import fileUpload from 'express-fileupload'
 // import bodyParser from 'body-parser'
@@ -15,6 +15,6 @@ app.use(cors({
 	methods: ['GET','POST','DELETE','PUT'],
   }));
 
-  app.use('/invoice',routes)
+  app.use('/invoice',controller)
 
 export default app

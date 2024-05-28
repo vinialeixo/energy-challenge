@@ -3,15 +3,15 @@ import getPDFText from '../utils/PdfReader.js';
 import invoiceRepository from '../repository/invoiceRepository.js';
 
 
-const routes = express.Router();
+const controller = express.Router();
 
 
 
-routes.get('/test', async (req, res) => {
+controller.get('/test', async (req, res) => {
   res.send('Hello World');
 });
 
-routes.get('/client-numbers', async (req, res) => {
+controller.get('/client-numbers', async (req, res) => {
 	let messages = [];
     const { clientNumber } = req.params;
 
@@ -36,7 +36,7 @@ routes.get('/client-numbers', async (req, res) => {
     }
 })
 
-routes.get('/client-number', async (req, res) => {
+controller.get('/client-number', async (req, res) => {
 	let msgs = [];
 	const { clientNumber } = req.query
 
@@ -55,7 +55,7 @@ routes.get('/client-number', async (req, res) => {
 		res.status(500).json({msgs, status: "error"});
 	}
 })
-routes.post('/upload', async (req, res) =>{
+controller.post('/upload', async (req, res) =>{
 	let messages = [];
     let pdfInfoArray = [];
 
@@ -94,7 +94,7 @@ routes.post('/upload', async (req, res) =>{
     }
 })
 
-routes.get('/document', async (req, res) => {
+controller.get('/document', async (req, res) => {
     let messages = [];
     const { documentName } = req.params;
 
@@ -113,4 +113,4 @@ routes.get('/document', async (req, res) => {
         res.status(500).json({ messages, status: "error" });
     }
 })
-export default routes;
+export default controller;

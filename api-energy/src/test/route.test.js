@@ -1,7 +1,7 @@
 // test/routes.test.js
 const request = require('supertest');
 const express = require('express');
-const routes = require('../routes/route.js');
+const routes = require('../routes/controller.js');
 const invoiceRepository = require('../repository/invoiceRepository.js');
 const { getPDFText } = require('../utils/PdfReader.js')
 // Mock the invoiceRepository and getPDFText modules
