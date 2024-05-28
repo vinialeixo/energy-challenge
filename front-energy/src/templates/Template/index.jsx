@@ -19,6 +19,7 @@ function Template({ navbar, sidebar, content, footer, children }) {
 				</div>
 
 				<div className={styles.mainContent}>
+					
 					{children}
 					{content}
 				</div>

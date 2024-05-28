@@ -72,7 +72,7 @@ export default function Invoices() {
     }
 
     const getMonth = (monthNumber) => {
-        return months[monthNumber].toUpperCase()
+        return months[monthNumber]
     }
 
     return (

@@ -35,7 +35,7 @@ export default function Dashboard() {
     }, [clientNumberSelected])
     
     const getMonths = (data) => {
-        return months[data.referenceMonth].toUpperCase()
+        return months[data.referenceMonth]
     }
 
     return (

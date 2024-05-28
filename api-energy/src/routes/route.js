@@ -16,7 +16,7 @@ routes.get('/client-numbers', async (req, res) => {
     const { clientNumber } = req.params;
 
     try {
-        const clientData = await invoiceRepository.findInvoicesByClientNumber({ clientNumber });
+        const clientData = await invoiceRepository.listClientNumbers({ clientNumber });
 
         if (clientData.length > 0) {
             messages.push('Success');
@@ -41,7 +41,7 @@ routes.get('/client-number', async (req, res) => {
 	const { clientNumber } = req.query
 
 	try {
-		const result = await invoiceRepository.listClientNumbers({clientNumber})
+		const result = await invoiceRepository.findInvoicesByClientNumber({clientNumber})
 
 		if (result.length > 0)
 			msgs.push('Success')

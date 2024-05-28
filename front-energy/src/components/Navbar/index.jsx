@@ -1,15 +1,15 @@
 import React from 'react'
-
+import logo from '../../img/labs_lumi_logo.jpg'
 import styles from './styles.module.scss'
 
 const Navbar = () => {
     return (
         <div className={styles.container}>
             <div>
-                Lumi Challenge
+                <img src={logo}/>
             </div>
             <div>
-                Invoice Processor
+                Dashboard
             </div>
         </div>
     )

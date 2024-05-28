@@ -10,11 +10,11 @@ const invoiceRepository = {
     },
 
 
-    findInvoicesByClientNumber: async (clientNumber) => {
+    findInvoicesByClientNumber: async (data) => {
         try {
             return await db.invoice.findMany({
                 where: {
-                    clientNumber: clientNumber
+                    clientNumber: data.clientNumber
                 },
                 orderBy: {
                     referenceMonth: 'asc',

@@ -1,10 +1,10 @@
 import { makeRequest } from "../Api";
 
-const urlCommon = '/invoice'
+const invoice = '/invoice'
 
 export const getClientNumbers = () => {
 
-    return makeRequest.get(`/client-numbers`)
+    return makeRequest.get(`${invoice}/client-numbers`)
         .then((response) => {
             return response
         })
@@ -12,7 +12,7 @@ export const getClientNumbers = () => {
 
 export const getByClientNumber = (data) => {
 
-    return makeRequest.get(`/client-number`, data)
+    return makeRequest.get(`${invoice}/client-number`, data)
         .then((response) => {
             return response
             console.log(response)
@@ -21,7 +21,7 @@ export const getByClientNumber = (data) => {
 
 export const getDocument = (data) => {
 
-    return makeRequest.get(`/document`, data)
+    return makeRequest.get(`${invoice}/document`, data)
         .then((response) => {
             return response
         })
@@ -29,7 +29,7 @@ export const getDocument = (data) => {
 
 export const invoiceImport = (data) => {
     
-    return makeRequest.post(`/import`, data, {
+    return makeRequest.post(`${invoice}/upload`, data, {
         "Content-Type": "multipart/form-data"
     }).then((response) => {
         return response
